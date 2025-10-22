@@ -1,3 +1,70 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "hero-car",
+      "description": "A stylish modern car in a workshop.",
+      "imageUrl": "https://images.unsplash.com/photo-1504366130991-154787072d46?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxtb2Rlcm4lMjBjYXJ8ZW58MHx8fHwxNzYxMDUxMzE2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "modern car"
+    },
+    {
+      "id": "before-1",
+      "description": "A car with a dented fender before repair.",
+      "imageUrl": "https://images.unsplash.com/photo-1758795116349-9aae40350156?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxkZW50ZWQlMjBjYXJ8ZW58MHx8fHwxNzYxMTE0NjM3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "dented car"
+    },
+    {
+      "id": "after-1",
+      "description": "The same car with a perfectly repaired fender.",
+      "imageUrl": "https://images.unsplash.com/photo-1597766347634-277bf2c89c32?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxyZXBhaXJlZCUyMGNhcnxlbnwwfHx8fDE3NjExMTQ2Mzd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "repaired car"
+    },
+    {
+      "id": "before-2",
+      "description": "A car with faded and scratched paint.",
+      "imageUrl": "https://images.unsplash.com/photo-1658157592444-1ece55c40733?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxzY3JhdGNoZWQlMjBwYWludHxlbnwwfHx8fDE3NjExMTQ2Mzd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "scratched paint"
+    },
+    {
+      "id": "after-2",
+      "description": "The same car after a new glossy paint job.",
+      "imageUrl": "https://images.unsplash.com/photo-1611327479655-8ecea49d63d4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxuZXclMjBwYWludHxlbnwwfHx8fDE3NjExMTQ2Mzd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "new paint"
+    },
+    {
+      "id": "before-3",
+      "description": "A car bumper with significant damage.",
+      "imageUrl": "https://images.unsplash.com/photo-1707573057704-7e3feea1cf3c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxkYW1hZ2VkJTIwYnVtcGVyfGVufDB8fHx8MTc2MTExNDYzN3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "damaged bumper"
+    },
+    {
+      "id": "after-3",
+      "description": "The same car with a restored bumper.",
+      "imageUrl": "https://images.unsplash.com/photo-1760229281971-302c9d857860?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxyZXN0b3JlZCUyMGJ1bXBlcnxlbnwwfHx8fDE3NjExMTQ2Mzh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "restored bumper"
+    },
+    {
+      "id": "user-car-placeholder",
+      "description": "A placeholder image for the user's uploaded car.",
+      "imageUrl": "https://images.unsplash.com/photo-1597007030739-6d2e7172ee5b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzaWx2ZXIlMjBjYXJ8ZW58MHx8fHwxNzYxMDcwMjA1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "silver car"
+    },
+    {
+      "id": "testimonial-1",
+      "description": "Avatar for a customer testimonial.",
+      "imageUrl": "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxtYW4lMjBwb3J0cmFpdHxlbnwwfHx8fDE3NjEwMTgyNDR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "man portrait"
+    },
+    {
+      "id": "testimonial-2",
+      "description": "Avatar for a customer testimonial.",
+      "imageUrl": "https://images.unsplash.com/photo-1614283233556-f35b0c801ef1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHx3b21hbiUyMHBvcnRyYWl0fGVufDB8fHx8MTc2MTA1NjI0N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "woman portrait"
+    },
+    {
+      "id": "testimonial-3",
+      "description": "Avatar for a customer testimonial.",
+      "imageUrl": "https://images.unsplash.com/photo-1623605931891-d5b95ee98459?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxwZXJzb24lMjBzbWlsaW5nfGVufDB8fHx8MTc2MTA4MjM0NXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "person smiling"
+    }
+  ]
 }
