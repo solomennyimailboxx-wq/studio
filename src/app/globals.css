@@ -111,4 +111,25 @@
   .glassmorphism-form {
       @apply bg-black/50 backdrop-blur-lg border border-white/10;
   }
+  
+  /* Styles for the car calculator SVG */
+  .car-part {
+    fill: hsl(var(--primary) / 0.12);
+    stroke: hsl(var(--primary) / 0.7);
+    stroke-width: 1.2;
+    cursor: pointer;
+    transition: fill-opacity 0.15s, stroke 0.15s, filter 0.15s;
+  }
+  .car-part:hover {
+    fill-opacity: 0.22;
+    stroke: hsl(var(--accent));
+    filter: drop-shadow(0 4px 8px hsl(var(--primary) / 0.2));
+  }
+  .selected {
+    fill: hsl(var(--primary));
+    fill-opacity: 0.28 !important;
+    stroke: hsl(var(--primary)) !important;
+    filter: drop-shadow(0 8px 18px hsl(var(--primary) / 0.3));
+  }
+
 }

@@ -6,7 +6,9 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { CarBody } from "./CarBody";
 import { Check, Info, ShoppingCart, X } from "lucide-react";
 import Link from "next/link";
-import { Popover, PopoverContent } from "@/components/ui/popover";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
+
 
 const workPrices: Record<string, number> = {
   "Рихтування": 150,
@@ -20,10 +22,11 @@ const partNames: Record<string, string> = {
     "hood": "Капот",
     "roof": "Дах",
     "trunk": "Багажник",
-    "front-fender": "Переднє крило",
     "front-door": "Передні двері",
     "rear-door": "Задні двері",
     "rear-fender": "Заднє крило",
+    "left-fender": "Переднє крило",
+    "right-fender": "Заднє крило",
     "rear-bumper": "Задній бампер",
 };
 
@@ -32,9 +35,18 @@ type SelectedWork = Record<string, Record<string, boolean>>;
 
 export default function RepairCalculator() {
     const [selectedWork, setSelectedWork] = useState<SelectedWork>({});
-    const [popoverState, setPopoverState] = useState<{ open: boolean; target: string | null; triggerRef: React.RefObject<SVGPathElement> | null }>({ open: false, target: null, triggerRef: null });
+    const [popoverState, setPopoverState] = useState<{ open: boolean; target: string | null; triggerRef: React.RefObject<SVGElement> | null }>({ open: false, target: null, triggerRef: null });
+    const popoverTriggerRef = useRef<HTMLDivElement>(null);
 
-    const handlePartClick = useCallback((partId: string, triggerRef: React.RefObject<SVGPathElement>) => {
+
+    const handlePartClick = useCallback((partId: string, triggerRef: React.RefObject<SVGElement>) => {
+        // We use a dummy div as a PopoverTrigger and manually position it
+        // because PopoverTrigger doesn't work well with SVG elements as children.
+        const rect = triggerRef.current?.getBoundingClientRect();
+        if (rect && popoverTriggerRef.current) {
+            popoverTriggerRef.current.style.top = `${rect.top + window.scrollY + rect.height / 2}px`;
+            popoverTriggerRef.current.style.left = `${rect.left + window.scrollX + rect.width / 2}px`;
+        }
         setPopoverState({ open: true, target: partId, triggerRef });
     }, []);
 
@@ -44,10 +56,11 @@ export default function RepairCalculator() {
             if (!newWork[partId]) {
                 newWork[partId] = {};
             }
-            // Toggle work type
+            
+            // Toggle work type - for now, we allow multiple selections
             newWork[partId][workType] = !newWork[partId][workType];
             
-            // If no work is selected for a part, remove the part from the selection
+            // If no work is selected for a part, remove it from the selection
             if (Object.values(newWork[partId]).every(v => !v)) {
                 delete newWork[partId];
             }
@@ -97,17 +110,16 @@ export default function RepairCalculator() {
                     </p>
                 </div>
                 <div className="mt-12 grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
-                    <div className="lg:col-span-3 glassmorphism-card p-4 md:p-8 rounded-2xl">
-                         <Popover open={popoverState.open} onOpenChange={(open) => setPopoverState(p => ({ ...p, open }))}>
+                    <div className="lg:col-span-3 p-4 md:p-8 rounded-2xl relative">
+                        <Popover open={popoverState.open} onOpenChange={(open) => setPopoverState(p => ({ ...p, open }))}>
+                             <PopoverTrigger asChild>
+                                <div ref={popoverTriggerRef} className="absolute w-0 h-0"></div>
+                            </PopoverTrigger>
+                            <CarBody selectedParts={selectedPartsForHighlight} onPartClick={handlePartClick} />
                             <PopoverContent 
                                 side="top" 
                                 align="center"
                                 className="w-auto bg-black/80 backdrop-blur-lg border-primary/50 text-white p-4"
-                                style={{
-                                    // Position the popover based on the trigger element's ref
-                                    left: popoverState.triggerRef?.current?.getBoundingClientRect().left,
-                                    top: popoverState.triggerRef?.current ? popoverState.triggerRef.current.getBoundingClientRect().top - 150 : 0
-                                }}
                             >
                                 {popoverState.target && (
                                     <div className="space-y-3">
@@ -120,7 +132,7 @@ export default function RepairCalculator() {
                                                     onClick={() => handleWorkSelection(popoverState.target!, work)}
                                                     className="justify-between"
                                                 >
-                                                    <span>{work.charAt(0).toUpperCase() + work.slice(1)}</span>
+                                                    <span>{work}</span>
                                                     <span className="font-mono text-xs opacity-75">${price}</span>
                                                 </Button>
                                             ))}
@@ -132,7 +144,6 @@ export default function RepairCalculator() {
                                     </div>
                                 )}
                             </PopoverContent>
-                             <CarBody selectedParts={selectedPartsForHighlight} onPartClick={handlePartClick} />
                         </Popover>
                     </div>
                     <Card className="lg:col-span-2 glassmorphism-card rounded-2xl sticky top-28">
