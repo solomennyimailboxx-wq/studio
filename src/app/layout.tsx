@@ -1,10 +1,17 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
+import { Inter } from 'next/font/google';
+
+const inter = Inter({
+  subsets: ['latin', 'cyrillic'],
+  variable: '--font-inter',
+});
 
 export const metadata: Metadata = {
-  title: 'Odesa Auto - Експертний кузовний ремонт та фарбування',
-  description: 'Професійні послуги з кузовного ремонту, фарбування та видалення в\'ятин в Одесі. Візуалізуйте новий вигляд вашого авто за допомогою нашого ШІ-інструменту.',
+  title: 'Odesa Auto | Професійний кузовний ремонт та фарбування в Одесі',
+  description: 'Експертні послуги з рихтування, фарбування, полірування та видалення вм\'ятин (PDR) в Одесі. Гарантія якості, комп\'ютерний підбір фарби, керамічний захист. Розрахуйте вартість онлайн!',
+  keywords: 'кузовний ремонт Одеса, фарбування авто Одеса, рихтування авто, полірування авто, видалення вм\'ятин без фарбування, pdr Одеса, ремонт бампера, кераміка на авто',
 };
 
 export default function RootLayout({
@@ -13,13 +20,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="uk" className="scroll-smooth">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-      </head>
-      <body className="font-body antialiased">
+    <html lang="uk" className="scroll-smooth dark">
+      <body className={`${inter.variable} font-sans bg-black antialiased`}>
         {children}
         <Toaster />
       </body>

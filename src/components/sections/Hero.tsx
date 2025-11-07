@@ -1,14 +1,14 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { ArrowRight } from 'lucide-react';
+import { ArrowDown } from 'lucide-react';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 export default function Hero() {
   const heroImage = PlaceHolderImages.find(p => p.id === 'hero-car');
 
   return (
-    <section className="relative h-[80vh] min-h-[500px] w-full">
+    <section className="relative h-screen min-h-[700px] w-full flex items-center justify-center">
       {heroImage && (
         <Image
           src={heroImage.imageUrl}
@@ -19,30 +19,36 @@ export default function Hero() {
           priority
         />
       )}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/50 to-transparent" />
-      <div className="relative z-10 flex h-full items-center justify-center text-center">
-        <div className="container mx-auto px-4 text-white">
-          <div className="md:glassmorphism rounded-xl md:p-12">
-            <h1 className="font-headline text-4xl font-bold tracking-tight md:text-6xl lg:text-7xl">
-              Досконалість у кожній деталі.
+      <div className="absolute inset-0 bg-black/80" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black" />
+      
+      <div className="relative z-10 flex flex-col items-center text-center text-white px-4">
+        <div className="bg-black/30 backdrop-blur-md rounded-2xl p-8 border border-white/10">
+            <h1 className="font-bold tracking-tighter text-4xl sm:text-5xl md:text-6xl lg:text-7xl">
+                <span className="block">Мистецтво кузовного ремонту</span>
+                <span className="block text-primary text-3xl sm:text-4xl md:text-5xl mt-2 md:mt-4 drop-shadow-[0_0_8px_hsl(var(--primary))]">в Одесі</span>
             </h1>
-            <p className="mx-auto mt-4 max-w-2xl text-lg text-primary-foreground/90 md:text-xl">
-              Експертні послуги з кузовного ремонту та фарбування в Одесі. Ми повертаємо ваше авто до життя.
+            <p className="mx-auto mt-6 max-w-2xl text-lg text-gray-200 md:text-xl">
+                Повертаємо вашому авто заводський вигляд та ідеальний блиск. Професійне фарбування, рихтування та видалення вм'ятин з гарантією якості.
             </p>
-          </div>
-          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button asChild size="lg" className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-primary-foreground">
-              <Link href="#contact">
-                Записатися на прийом
-              </Link>
-            </Button>
-            <Button asChild size="lg" variant="outline" className="w-full sm:w-auto border-primary-foreground text-primary-foreground bg-transparent hover:bg-primary-foreground/10">
-              <Link href="#gallery">
-                Дивитися наші роботи <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
-            </Button>
-          </div>
         </div>
+        <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Button asChild size="lg" className="w-full sm:w-auto text-lg bg-primary hover:bg-primary/90 text-primary-foreground hover:scale-105 transition-transform hover:shadow-[0_0_15px_hsl(var(--primary))]">
+              <Link href="#calculator">
+                Розрахувати вартість
+              </Link>
+            </Button>
+            <Button asChild size="lg" variant="outline" className="w-full sm:w-auto text-lg border-white/50 text-white bg-white/10 hover:bg-white/20 backdrop-blur-sm">
+              <Link href="#services">
+                Наші послуги
+              </Link>
+            </Button>
+        </div>
+      </div>
+      <div className="absolute bottom-10 z-10">
+        <Link href="#services" aria-label="Дізнатись більше">
+            <ArrowDown className="h-8 w-8 text-white/50 animate-bounce"/>
+        </Link>
       </div>
     </section>
   );
