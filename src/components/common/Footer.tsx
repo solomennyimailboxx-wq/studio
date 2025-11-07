@@ -13,14 +13,14 @@ export default function Footer() {
             <span className="text-lg font-semibold">Odesa Auto</span>
           </div>
           <p className="text-sm text-muted-foreground">
-            &copy; {currentYear} Odesa Auto. All rights reserved.
+            &copy; {currentYear} Odesa Auto. Всі права захищено.
           </p>
           <div className="flex items-center gap-4">
             <Link href="#" className="text-sm text-muted-foreground hover:text-primary" prefetch={false}>
-              Privacy Policy
+              Політика конфіденційності
             </Link>
             <Link href="#" className="text-sm text-muted-foreground hover:text-primary" prefetch={false}>
-              Terms of Service
+              Умови надання послуг
             </Link>
           </div>
         </div>

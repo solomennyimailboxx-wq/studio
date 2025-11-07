@@ -3,8 +3,8 @@ import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
-  title: 'Odesa Auto - Expert Auto Body & Paint',
-  description: 'Professional bodywork, painting, and dent repair services in Odesa. Visualize your car\'s new look with our AI tool.',
+  title: 'Odesa Auto - Експертний кузовний ремонт та фарбування',
+  description: 'Професійні послуги з кузовного ремонту, фарбування та видалення в\'ятин в Одесі. Візуалізуйте новий вигляд вашого авто за допомогою нашого ШІ-інструменту.',
 };
 
 export default function RootLayout({
@@ -13,7 +13,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="uk" className="scroll-smooth">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />

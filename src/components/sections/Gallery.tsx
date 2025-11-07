@@ -5,9 +5,9 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { Badge } from '@/components/ui/badge';
 
 const projects = [
-  { beforeId: 'before-1', afterId: 'after-1', title: 'Fender Restoration' },
-  { beforeId: 'before-2', afterId: 'after-2', title: 'Full Repaint' },
-  { beforeId: 'before-3', afterId: 'after-3', title: 'Bumper Repair' },
+  { beforeId: 'before-1', afterId: 'after-1', title: 'Відновлення крила' },
+  { beforeId: 'before-2', afterId: 'after-2', title: 'Повне перефарбування' },
+  { beforeId: 'before-3', afterId: 'after-3', title: 'Ремонт бампера' },
 ];
 
 export default function Gallery() {
@@ -21,9 +21,9 @@ export default function Gallery() {
     <section id="gallery" className="py-20 md:py-32 bg-muted">
       <div className="container mx-auto px-4 md:px-6">
         <div className="mx-auto max-w-3xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight md:text-4xl font-headline">Proven Results</h2>
+          <h2 className="text-3xl font-bold tracking-tight md:text-4xl font-headline">Доведені результати</h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            Words are good, but photos are better. See the transformations we've delivered.
+            Слова – це добре, але фотографії краще. Подивіться на перетворення, які ми виконали.
           </p>
         </div>
         <div className="mt-12">
@@ -45,27 +45,27 @@ export default function Gallery() {
                             {project.beforeImage && (
                               <Image
                                 src={project.beforeImage.imageUrl}
-                                alt={`Before: ${project.title}`}
+                                alt={`До: ${project.title}`}
                                 width={600}
                                 height={400}
                                 className="aspect-video object-cover"
                                 data-ai-hint={project.beforeImage.imageHint}
                               />
                             )}
-                             <Badge variant="destructive" className="absolute top-2 left-2">Before</Badge>
+                             <Badge variant="destructive" className="absolute top-2 left-2">До</Badge>
                           </div>
                           <div className="relative">
                             {project.afterImage && (
                               <Image
                                 src={project.afterImage.imageUrl}
-                                alt={`After: ${project.title}`}
+                                alt={`Після: ${project.title}`}
                                 width={600}
                                 height={400}
                                 className="aspect-video object-cover"
                                 data-ai-hint={project.afterImage.imageHint}
                               />
                             )}
-                             <Badge className="absolute top-2 left-2 bg-accent text-accent-foreground">After</Badge>
+                             <Badge className="absolute top-2 left-2 bg-accent text-accent-foreground">Після</Badge>
                           </div>
                         </div>
                          <div className="p-4">

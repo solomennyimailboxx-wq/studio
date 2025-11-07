@@ -8,10 +8,10 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { cn } from '@/lib/utils';
 
 const navLinks = [
-  { href: '#services', label: 'Services' },
-  { href: '#gallery', label: 'Gallery' },
-  { href: '#testimonials', label: 'Testimonials' },
-  { href: '#contact', label: 'Contact' },
+  { href: '#services', label: 'Послуги' },
+  { href: '#gallery', label: 'Галерея' },
+  { href: '#testimonials', label: 'Відгуки' },
+  { href: '#contact', label: 'Контакти' },
 ];
 
 export default function Header() {
@@ -55,7 +55,7 @@ export default function Header() {
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon">
                 <Menu className="h-6 w-6" />
-                <span className="sr-only">Toggle navigation menu</span>
+                <span className="sr-only">Відкрити меню навігації</span>
               </Button>
             </SheetTrigger>
             <SheetContent side="right">

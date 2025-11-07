@@ -6,20 +6,20 @@ import { Quote } from 'lucide-react';
 const testimonials = [
   {
     id: 'testimonial-1',
-    name: 'Andriy P.',
-    quote: "My car looks better than when I bought it! The attention to detail is incredible. Truly professional work. Highly recommend Odesa Auto.",
+    name: 'Андрій П.',
+    quote: "Моя машина виглядає краще, ніж коли я її купив! Увага до деталей неймовірна. Справжня професійна робота. Дуже рекомендую Odesa Auto.",
     avatarHint: 'man portrait',
   },
   {
     id: 'testimonial-2',
-    name: 'Olena K.',
-    quote: "They handled a complex body repair for me, and the result is seamless. You can't even tell there was damage. Fast, friendly, and fair pricing.",
+    name: 'Олена К.',
+    quote: "Вони виконали для мене складний кузовний ремонт, і результат бездоганний. Навіть не скажеш, що було пошкодження. Швидко, дружелюбно та за справедливою ціною.",
     avatarHint: 'woman portrait',
   },
   {
     id: 'testimonial-3',
-    name: 'Serhiy V.',
-    quote: "The paint job is flawless. The color matching was perfect, and the finish is like glass. I'm extremely satisfied with the service and the outcome.",
+    name: 'Сергій В.',
+    quote: "Фарбування бездоганне. Підбір кольору був ідеальним, а покриття - як скло. Я надзвичайно задоволений сервісом та результатом.",
     avatarHint: 'person smiling',
   },
 ];
@@ -34,9 +34,9 @@ export default function Testimonials() {
     <section id="testimonials" className="py-20 md:py-32 bg-muted">
       <div className="container mx-auto px-4 md:px-6">
         <div className="mx-auto max-w-3xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight md:text-4xl font-headline">What Our Clients Say</h2>
+          <h2 className="text-3xl font-bold tracking-tight md:text-4xl font-headline">Що кажуть наші клієнти</h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            We're proud of our work, and our customers are too.
+            Ми пишаємося своєю роботою, і наші клієнти теж.
           </p>
         </div>
         <div className="mt-12 grid gap-8 md:grid-cols-1 lg:grid-cols-3">
@@ -54,7 +54,7 @@ export default function Testimonials() {
                   </Avatar>
                   <div>
                     <p className="font-semibold">{testimonial.name}</p>
-                    <p className="text-sm text-muted-foreground">Satisfied Customer</p>
+                    <p className="text-sm text-muted-foreground">Задоволений клієнт</p>
                   </div>
                 </div>
               </CardContent>

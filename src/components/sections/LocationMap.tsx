@@ -11,8 +11,8 @@ export default function LocationMap() {
     return (
       <div className="flex h-full min-h-[400px] w-full items-center justify-center rounded-lg bg-muted text-center text-muted-foreground">
         <p>
-          Google Maps API key is missing. <br />
-          Please set NEXT_PUBLIC_GOOGLE_MAPS_API_KEY in your .env.local file.
+          Ключ API Google Maps відсутній. <br />
+          Будь ласка, встановіть NEXT_PUBLIC_GOOGLE_MAPS_API_KEY у вашому файлі .env.local.
         </p>
       </div>
     );

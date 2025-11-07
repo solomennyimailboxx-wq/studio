@@ -4,18 +4,18 @@ import { PaintBucket, Hammer, Wrench } from 'lucide-react';
 const services = [
   {
     icon: <Wrench className="h-10 w-10 text-primary" />,
-    title: 'Bodywork',
-    description: 'From minor scratches to major collision damage, we restore your vehicle\'s body to its original condition with precision and care.',
+    title: 'Кузовні роботи',
+    description: 'Від дрібних подряпин до серйозних пошкоджень після ДТП, ми відновлюємо кузов вашого автомобіля до початкового стану з точністю та турботою.',
   },
   {
     icon: <PaintBucket className="h-10 w-10 text-primary" />,
-    title: 'Painting',
-    description: 'Using high-quality materials and advanced techniques, we provide flawless paint jobs, color matching, and custom finishes.',
+    title: 'Фарбування',
+    description: 'Використовуючи високоякісні матеріали та передові технології, ми забезпечуємо бездоганне фарбування, підбір кольору та індивідуальне оздоблення.',
   },
   {
     icon: <Hammer className="h-10 w-10 text-primary" />,
-    title: 'Dent Repair',
-    description: 'Our paintless dent repair (PDR) service removes dents and dings efficiently, preserving your car\'s factory finish.',
+    title: 'Видалення вм\'ятин',
+    description: 'Наша послуга безфарбового видалення вм\'ятин (PDR) ефективно усуває вм\'ятини та пошкодження, зберігаючи заводське покриття вашого авто.',
   },
 ];
 
@@ -24,9 +24,9 @@ export default function Services() {
     <section id="services" className="py-20 md:py-32 bg-background">
       <div className="container mx-auto px-4 md:px-6">
         <div className="mx-auto max-w-3xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight md:text-4xl font-headline">Our Expertise</h2>
+          <h2 className="text-3xl font-bold tracking-tight md:text-4xl font-headline">Наша експертиза</h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            We offer a comprehensive range of services to meet all your auto body needs.
+            Ми пропонуємо повний спектр послуг для задоволення всіх потреб вашого авто.
           </p>
         </div>
         <div className="mt-12 grid gap-8 md:grid-cols-3">

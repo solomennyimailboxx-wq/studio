@@ -27,8 +27,8 @@ export default function AiVisualizer() {
       if (file.size > 4 * 1024 * 1024) { // 4MB limit
         toast({
           variant: "destructive",
-          title: "File too large",
-          description: "Please upload an image smaller than 4MB.",
+          title: "Файл занадто великий",
+          description: "Будь ласка, завантажте зображення розміром менше 4 МБ.",
         });
         return;
       }
@@ -44,11 +44,11 @@ export default function AiVisualizer() {
 
   const handleVisualize = () => {
     if (!photoDataUri) {
-      toast({ variant: "destructive", title: "No image uploaded", description: "Please upload a photo of your car." });
+      toast({ variant: "destructive", title: "Зображення не завантажено", description: "Будь ласка, завантажте фото вашого авто." });
       return;
     }
     if (!customization.trim()) {
-      toast({ variant: "destructive", title: "No customization described", description: "Please describe the change you want to see." });
+      toast({ variant: "destructive", title: "Не описано кастомізацію", description: "Будь ласка, опишіть зміни, які ви хочете побачити." });
       return;
     }
 
@@ -60,11 +60,11 @@ export default function AiVisualizer() {
         });
         setVisualizedImage(result.visualizedImage);
       } catch (error) {
-        console.error("AI Visualization failed:", error);
+        console.error("Помилка візуалізації ШІ:", error);
         toast({
           variant: "destructive",
-          title: "Visualization Failed",
-          description: "Something went wrong. Please try again.",
+          title: "Помилка візуалізації",
+          description: "Щось пішло не так. Будь ласка, спробуйте ще раз.",
         });
       }
     });
@@ -74,19 +74,19 @@ export default function AiVisualizer() {
     <section id="visualizer" className="py-20 md:py-32 bg-background">
       <div className="container mx-auto px-4 md:px-6">
         <div className="mx-auto max-w-3xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight md:text-4xl font-headline">AI-Powered Visualizer</h2>
+          <h2 className="text-3xl font-bold tracking-tight md:text-4xl font-headline">ШІ-візуалізатор</h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            Upload a photo of your car and see your ideas come to life.
+            Завантажте фото свого авто та втілюйте свої ідеї в життя.
           </p>
         </div>
         <div className="mt-12 grid gap-8 lg:grid-cols-2">
           <Card>
             <CardHeader>
-              <CardTitle>1. Upload & Describe</CardTitle>
+              <CardTitle>1. Завантажте та опишіть</CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="space-y-2">
-                <label htmlFor="car-photo" className="font-medium">Car Photo</label>
+                <label htmlFor="car-photo" className="font-medium">Фото авто</label>
                 <div className="flex items-center gap-4">
                   <label htmlFor="car-photo" className="flex-1">
                     <Input id="car-photo" type="file" accept="image/*" onChange={handleFileChange} className="cursor-pointer" />
@@ -95,10 +95,10 @@ export default function AiVisualizer() {
                 </div>
               </div>
               <div className="space-y-2">
-                <label htmlFor="customization-desc" className="font-medium">Customization Description</label>
+                <label htmlFor="customization-desc" className="font-medium">Опис кастомізації</label>
                 <Textarea
                   id="customization-desc"
-                  placeholder="e.g., 'Paint the car glossy black', 'Remove the dent on the front bumper'"
+                  placeholder="напр., 'Пофарбувати машину в глянсовий чорний', 'Прибрати вм'ятину на передньому бампері'"
                   value={customization}
                   onChange={(e) => setCustomization(e.target.value)}
                   rows={3}
@@ -110,21 +110,21 @@ export default function AiVisualizer() {
                 ) : (
                   <Sparkles className="mr-2 h-4 w-4" />
                 )}
-                Visualize
+                Візуалізувати
               </Button>
             </CardContent>
           </Card>
           <Card className="flex flex-col">
             <CardHeader>
-              <CardTitle>2. See the Result</CardTitle>
+              <CardTitle>2. Перегляньте результат</CardTitle>
             </CardHeader>
             <CardContent className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="flex flex-col items-center gap-2">
-                <h3 className="font-semibold">Original</h3>
+                <h3 className="font-semibold">Оригінал</h3>
                 <div className="aspect-video w-full overflow-hidden rounded-lg border">
                   <Image
                     src={originalImageFile ? URL.createObjectURL(originalImageFile) : (placeholder?.imageUrl || '')}
-                    alt="Original car"
+                    alt="Оригінальне авто"
                     width={600}
                     height={400}
                     className="h-full w-full object-cover"
@@ -132,14 +132,14 @@ export default function AiVisualizer() {
                 </div>
               </div>
                <div className="flex flex-col items-center gap-2">
-                <h3 className="font-semibold">Visualized</h3>
+                <h3 className="font-semibold">Візуалізація</h3>
                 <div className="aspect-video w-full overflow-hidden rounded-lg border bg-muted/50 flex items-center justify-center">
                   {isPending ? (
                      <Loader2 className="h-8 w-8 animate-spin text-primary" />
                   ) : visualizedImage ? (
                     <Image
                       src={visualizedImage}
-                      alt="Visualized car customization"
+                      alt="Візуалізована кастомізація авто"
                       width={600}
                       height={400}
                       className="h-full w-full object-cover"

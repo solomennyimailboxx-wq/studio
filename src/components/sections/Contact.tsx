@@ -20,15 +20,15 @@ import { Mail, Phone, MapPin } from 'lucide-react';
 
 const formSchema = z.object({
   name: z.string().min(2, {
-    message: "Name must be at least 2 characters.",
+    message: "Ім'я повинно містити принаймні 2 символи.",
   }),
   phone: z.string().min(10, {
-    message: "Please enter a valid phone number.",
+    message: "Будь ласка, введіть дійсний номер телефону.",
   }),
   message: z.string().min(10, {
-    message: "Message must be at least 10 characters.",
+    message: "Повідомлення повинно містити принаймні 10 символів.",
   }).max(500, {
-    message: "Message must not exceed 500 characters."
+    message: "Повідомлення не повинно перевищувати 500 символів."
   }),
 });
 
@@ -45,10 +45,10 @@ export default function Contact() {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
-    // Here you would typically send the data to your backend
+    // Тут ви зазвичай надсилаєте дані на свій бекенд
     toast({
-      title: "Appointment Requested!",
-      description: "Thank you for your message. We will contact you shortly.",
+      title: "Заявку надіслано!",
+      description: "Дякуємо за ваше повідомлення. Ми зв'яжемося з вами найближчим часом.",
     });
     form.reset();
   }
@@ -57,9 +57,9 @@ export default function Contact() {
     <section id="contact" className="py-20 md:py-32 bg-background">
       <div className="container mx-auto px-4 md:px-6">
         <div className="mx-auto max-w-3xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight md:text-4xl font-headline">Get in Touch</h2>
+          <h2 className="text-3xl font-bold tracking-tight md:text-4xl font-headline">Зв'яжіться з нами</h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            Ready for a transformation? Contact us for a quote or to book an appointment.
+            Готові до перевтілення? Зв'яжіться з нами для розрахунку вартості або запису на прийом.
           </p>
         </div>
         <div className="mt-12 grid gap-12 lg:grid-cols-2">
@@ -71,9 +71,9 @@ export default function Contact() {
                     name="name"
                     render={({ field }) => (
                         <FormItem>
-                        <FormLabel>Your Name</FormLabel>
+                        <FormLabel>Ваше ім'я</FormLabel>
                         <FormControl>
-                            <Input placeholder="John Doe" {...field} />
+                            <Input placeholder="Іван Петров" {...field} />
                         </FormControl>
                         <FormMessage />
                         </FormItem>
@@ -84,7 +84,7 @@ export default function Contact() {
                     name="phone"
                     render={({ field }) => (
                         <FormItem>
-                        <FormLabel>Phone Number</FormLabel>
+                        <FormLabel>Номер телефону</FormLabel>
                         <FormControl>
                             <Input placeholder="+380 (XX) XXX-XX-XX" {...field} />
                         </FormControl>
@@ -97,10 +97,10 @@ export default function Contact() {
                     name="message"
                     render={({ field }) => (
                         <FormItem>
-                        <FormLabel>How can we help?</FormLabel>
+                        <FormLabel>Чим можемо допомогти?</FormLabel>
                         <FormControl>
                             <Textarea
-                            placeholder="Tell us about your car and the service you need..."
+                            placeholder="Розкажіть нам про своє авто та потрібну послугу..."
                             className="resize-none"
                             {...field}
                             />
@@ -109,7 +109,7 @@ export default function Contact() {
                         </FormItem>
                     )}
                     />
-                    <Button type="submit" className="w-full bg-accent text-accent-foreground hover:bg-accent/90">Request Appointment</Button>
+                    <Button type="submit" className="w-full bg-accent text-accent-foreground hover:bg-accent/90">Записатися на прийом</Button>
                 </form>
                 </Form>
                 <div className="space-y-4 text-sm">
@@ -123,7 +123,7 @@ export default function Contact() {
                     </div>
                      <div className="flex items-center gap-4">
                         <MapPin className="h-5 w-5 text-primary" />
-                        <span className="text-muted-foreground">Odesa, Ukraine</span>
+                        <span className="text-muted-foreground">Одеса, Україна</span>
                     </div>
                 </div>
             </div>
