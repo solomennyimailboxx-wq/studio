@@ -6,26 +6,27 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { CarBody } from "./CarBody";
 import { Check, Info, ShoppingCart, X } from "lucide-react";
 import Link from "next/link";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Popover, PopoverContent } from "@/components/ui/popover";
 
 const workPrices: Record<string, number> = {
-  "рихтування": 150,
-  "шпаклювання": 100,
-  "фарбування": 250,
-  "полірування": 50,
+  "Рихтування": 150,
+  "Шпаклювання": 100,
+  "Фарбування": 250,
+  "Полірування": 50,
 };
 
-const partMultipliers: Record<string, { name: string; multiplier: number }> = {
-    "front-bumper": { name: "Передній бампер", multiplier: 1.2 },
-    "hood": { name: "Капот", multiplier: 1.8 },
-    "roof": { name: "Дах", multiplier: 2.0 },
-    "trunk": { name: "Багажник", multiplier: 1.5 },
-    "front-fender": { name: "Переднє крило", multiplier: 1.0 },
-    "front-door": { name: "Передні двері", multiplier: 1.4 },
-    "rear-door": { name: "Задні двері", multiplier: 1.4 },
-    "rear-fender": { name: "Заднє крило", multiplier: 1.1 },
-    "rear-bumper": { name: "Задній бампер", multiplier: 1.2 },
+const partNames: Record<string, string> = {
+    "front-bumper": "Передній бампер",
+    "hood": "Капот",
+    "roof": "Дах",
+    "trunk": "Багажник",
+    "front-fender": "Переднє крило",
+    "front-door": "Передні двері",
+    "rear-door": "Задні двері",
+    "rear-fender": "Заднє крило",
+    "rear-bumper": "Задній бампер",
 };
+
 
 type SelectedWork = Record<string, Record<string, boolean>>;
 
@@ -34,7 +35,7 @@ export default function RepairCalculator() {
     const [popoverState, setPopoverState] = useState<{ open: boolean; target: string | null; triggerRef: React.RefObject<SVGPathElement> | null }>({ open: false, target: null, triggerRef: null });
 
     const handlePartClick = useCallback((partId: string, triggerRef: React.RefObject<SVGPathElement>) => {
-        setPopoverState({ open: true, target: partId, triggerRef: triggerRef });
+        setPopoverState({ open: true, target: partId, triggerRef });
     }, []);
 
     const handleWorkSelection = (partId: string, workType: string) => {
@@ -43,8 +44,10 @@ export default function RepairCalculator() {
             if (!newWork[partId]) {
                 newWork[partId] = {};
             }
+            // Toggle work type
             newWork[partId][workType] = !newWork[partId][workType];
             
+            // If no work is selected for a part, remove the part from the selection
             if (Object.values(newWork[partId]).every(v => !v)) {
                 delete newWork[partId];
             }
@@ -57,14 +60,14 @@ export default function RepairCalculator() {
         let total = 0;
 
         for (const partId in selectedWork) {
-            const partInfo = partMultipliers[partId];
-            if (!partInfo) continue;
+            const partName = partNames[partId];
+            if (!partName) continue;
 
             for (const workType in selectedWork[partId]) {
                 if (selectedWork[partId][workType]) {
-                    const price = workPrices[workType] * partInfo.multiplier;
+                    const price = workPrices[workType];
                     items.push({
-                        name: partInfo.name,
+                        name: partName,
                         work: workType,
                         price: Math.round(price)
                     });
@@ -96,21 +99,19 @@ export default function RepairCalculator() {
                 <div className="mt-12 grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
                     <div className="lg:col-span-3 glassmorphism-card p-4 md:p-8 rounded-2xl">
                          <Popover open={popoverState.open} onOpenChange={(open) => setPopoverState(p => ({ ...p, open }))}>
-                            <PopoverTrigger asChild>
-                                {/* This div is a placeholder for the trigger, the actual trigger is the car part */}
-                                <div />
-                            </PopoverTrigger>
-                            <CarBody selectedParts={selectedPartsForHighlight} onPartClick={handlePartClick} />
-
                             <PopoverContent 
                                 side="top" 
                                 align="center"
                                 className="w-auto bg-black/80 backdrop-blur-lg border-primary/50 text-white p-4"
-                                anchor={popoverState.triggerRef?.current}
+                                style={{
+                                    // Position the popover based on the trigger element's ref
+                                    left: popoverState.triggerRef?.current?.getBoundingClientRect().left,
+                                    top: popoverState.triggerRef?.current ? popoverState.triggerRef.current.getBoundingClientRect().top - 150 : 0
+                                }}
                             >
                                 {popoverState.target && (
                                     <div className="space-y-3">
-                                        <h4 className="font-bold text-lg text-primary">{partMultipliers[popoverState.target].name}</h4>
+                                        <h4 className="font-bold text-lg text-primary">{partNames[popoverState.target]}</h4>
                                         <div className="grid grid-cols-2 gap-2">
                                             {Object.entries(workPrices).map(([work, price]) => (
                                                 <Button
@@ -120,7 +121,7 @@ export default function RepairCalculator() {
                                                     className="justify-between"
                                                 >
                                                     <span>{work.charAt(0).toUpperCase() + work.slice(1)}</span>
-                                                    <span className="font-mono text-xs opacity-75">${Math.round(price * partMultipliers[popoverState.target!].multiplier)}</span>
+                                                    <span className="font-mono text-xs opacity-75">${price}</span>
                                                 </Button>
                                             ))}
                                         </div>
@@ -131,6 +132,7 @@ export default function RepairCalculator() {
                                     </div>
                                 )}
                             </PopoverContent>
+                             <CarBody selectedParts={selectedPartsForHighlight} onPartClick={handlePartClick} />
                         </Popover>
                     </div>
                     <Card className="lg:col-span-2 glassmorphism-card rounded-2xl sticky top-28">
@@ -159,7 +161,7 @@ export default function RepairCalculator() {
                                     ))}
                                 </ul>
                             ) : (
-                                <p className="text-gray-400 text-center py-8">Оберіть деталі на схемах для розрахунку</p>
+                                <p className="text-gray-400 text-center py-8">Оберіть деталі на схемі для розрахунку</p>
                             )}
                         </CardContent>
                         <CardFooter className="flex flex-col items-stretch gap-4 pt-6 mt-4 border-t border-primary/20">
