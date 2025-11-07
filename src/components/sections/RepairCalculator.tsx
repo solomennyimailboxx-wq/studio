@@ -3,11 +3,9 @@
 import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { CarBody } from "./CarBody";
 import { Check, Info, ShoppingCart } from "lucide-react";
 import Link from "next/link";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 const partPrices: Record<string, { name: string; price: number }> = {
     "front-bumper": { name: "Передній бампер", price: 250 },
@@ -19,10 +17,8 @@ const partPrices: Record<string, { name: string; price: number }> = {
     "front-right-fender": { name: "Переднє праве крило", price: 200 },
     "rear-left-fender": { name: "Заднє ліве крило", price: 200 },
     "rear-right-fender": { name: "Заднє праве крило", price: 200 },
-    "front-left-door": { name: "Передні ліві двері", price: 350 },
-    "front-right-door": { name: "Передні праві двері", price: 350 },
-    "rear-left-door": { name: "Задні ліві двері", price: 350 },
-    "rear-right-door": { name: "Задні праві двері", price: 350 },
+    "front-door": { name: "Передні двері", price: 350 },
+    "rear-door": { name: "Задні двері", price: 350 },
 };
 
 type SelectedParts = Record<string, boolean>;
@@ -39,9 +35,12 @@ export default function RepairCalculator() {
             .filter(([, isSelected]) => isSelected)
             .map(([id]) => partPrices[id]);
 
-        const total = items.reduce((sum, item) => sum + item.price, 0);
+        const uniqueItems = Array.from(new Set(items.map(item => item.name)))
+            .map(name => items.find(item => item.name === name)!);
 
-        return { total, selectedItems: items };
+        const total = uniqueItems.reduce((sum, item) => sum + item.price, 0);
+
+        return { total, selectedItems: uniqueItems };
     }, [selectedParts]);
 
 
@@ -51,11 +50,11 @@ export default function RepairCalculator() {
                 <div className="mx-auto max-w-3xl text-center">
                     <h2 className="text-3xl font-bold tracking-tight md:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-gray-100 to-gray-400">Калькулятор вартості</h2>
                     <p className="mt-4 text-lg text-gray-300">
-                        Отримайте миттєву попередню оцінку вартості фарбування. Просто оберіть пошкоджені деталі на схемі.
+                        Отримайте миттєву попередню оцінку вартості фарбування. Просто оберіть пошкоджені деталі на схемах.
                     </p>
                 </div>
                 <div className="mt-12 grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-                    <div className="lg:col-span-2">
+                    <div className="lg:col-span-2 glassmorphism-card p-4 md:p-8 rounded-2xl">
                         <CarBody selectedParts={selectedParts} onPartClick={handlePartClick} />
                     </div>
                     <Card className="glassmorphism-card rounded-2xl sticky top-28">
@@ -83,7 +82,7 @@ export default function RepairCalculator() {
                                     ))}
                                 </ul>
                             ) : (
-                                <p className="text-gray-400 text-center py-8">Оберіть деталі на схемі для розрахунку</p>
+                                <p className="text-gray-400 text-center py-8">Оберіть деталі на схемах для розрахунку</p>
                             )}
                         </CardContent>
                         <CardFooter className="flex flex-col items-stretch gap-4 pt-6 mt-4 border-t border-primary/20">
