@@ -30,7 +30,7 @@ export default function Header() {
     <header
       className={cn(
         'sticky top-0 z-50 w-full transition-all duration-300',
-        isScrolled ? 'bg-background/80 backdrop-blur-sm shadow-md' : 'bg-transparent'
+        isScrolled ? 'bg-background/80 backdrop-blur-xl border-b' : 'bg-transparent'
       )}
     >
       <div className="container mx-auto flex h-20 items-center justify-between px-4 md:px-6">
@@ -58,7 +58,7 @@ export default function Header() {
                 <span className="sr-only">Відкрити меню навігації</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="right">
+            <SheetContent side="right" className="glassmorphism bg-background/80">
               <div className="flex flex-col gap-6 p-6">
                 <Link href="/" className="mb-4 flex items-center gap-2" prefetch={false} onClick={() => setIsMobileMenuOpen(false)}>
                   <Car className="h-6 w-6 text-primary" />
@@ -69,7 +69,7 @@ export default function Header() {
                     <Link
                       key={link.href}
                       href={link.href}
-                      className="text-lg font-medium text-muted-foreground transition-colors hover:text-primary"
+                      className="text-lg font-medium text-foreground transition-colors hover:text-primary"
                       prefetch={false}
                       onClick={() => setIsMobileMenuOpen(false)}
                     >

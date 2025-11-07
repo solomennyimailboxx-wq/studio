@@ -41,7 +41,7 @@ export default function Testimonials() {
         </div>
         <div className="mt-12 grid gap-8 md:grid-cols-1 lg:grid-cols-3">
           {testimonialsWithImages.map((testimonial) => (
-            <Card key={testimonial.id} className="flex flex-col">
+            <Card key={testimonial.id} className="flex flex-col glassmorphism bg-card/80">
               <CardContent className="flex flex-1 flex-col justify-between p-6">
                  <Quote className="h-8 w-8 text-primary/50 mb-4" />
                 <p className="flex-1 text-muted-foreground">"{testimonial.quote}"</p>

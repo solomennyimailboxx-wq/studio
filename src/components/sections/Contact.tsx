@@ -17,6 +17,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import LocationMap from "./LocationMap";
 import { Mail, Phone, MapPin } from 'lucide-react';
+import { Card, CardContent } from "@/components/ui/card";
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -63,70 +64,72 @@ export default function Contact() {
           </p>
         </div>
         <div className="mt-12 grid gap-12 lg:grid-cols-2">
-            <div className="space-y-8">
-                <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                    <FormField
-                    control={form.control}
-                    name="name"
-                    render={({ field }) => (
-                        <FormItem>
-                        <FormLabel>Ваше ім'я</FormLabel>
-                        <FormControl>
-                            <Input placeholder="Іван Петров" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                        </FormItem>
-                    )}
-                    />
-                    <FormField
-                    control={form.control}
-                    name="phone"
-                    render={({ field }) => (
-                        <FormItem>
-                        <FormLabel>Номер телефону</FormLabel>
-                        <FormControl>
-                            <Input placeholder="+380 (XX) XXX-XX-XX" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                        </FormItem>
-                    )}
-                    />
-                    <FormField
-                    control={form.control}
-                    name="message"
-                    render={({ field }) => (
-                        <FormItem>
-                        <FormLabel>Чим можемо допомогти?</FormLabel>
-                        <FormControl>
-                            <Textarea
-                            placeholder="Розкажіть нам про своє авто та потрібну послугу..."
-                            className="resize-none"
-                            {...field}
-                            />
-                        </FormControl>
-                        <FormMessage />
-                        </FormItem>
-                    )}
-                    />
-                    <Button type="submit" className="w-full bg-accent text-accent-foreground hover:bg-accent/90">Записатися на прийом</Button>
-                </form>
-                </Form>
-                <div className="space-y-4 text-sm">
-                    <div className="flex items-center gap-4">
-                        <Phone className="h-5 w-5 text-primary" />
-                        <a href="tel:+380000000000" className="text-muted-foreground hover:text-primary">+380 (00) 000-00-00</a>
+            <Card className="glassmorphism bg-card/80 p-6 md:p-8">
+                <CardContent className="p-0">
+                    <Form {...form}>
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                        <FormField
+                        control={form.control}
+                        name="name"
+                        render={({ field }) => (
+                            <FormItem>
+                            <FormLabel>Ваше ім'я</FormLabel>
+                            <FormControl>
+                                <Input placeholder="Іван Петров" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                            </FormItem>
+                        )}
+                        />
+                        <FormField
+                        control={form.control}
+                        name="phone"
+                        render={({ field }) => (
+                            <FormItem>
+                            <FormLabel>Номер телефону</FormLabel>
+                            <FormControl>
+                                <Input placeholder="+380 (XX) XXX-XX-XX" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                            </FormItem>
+                        )}
+                        />
+                        <FormField
+                        control={form.control}
+                        name="message"
+                        render={({ field }) => (
+                            <FormItem>
+                            <FormLabel>Чим можемо допомогти?</FormLabel>
+                            <FormControl>
+                                <Textarea
+                                placeholder="Розкажіть нам про своє авто та потрібну послугу..."
+                                className="resize-none"
+                                {...field}
+                                />
+                            </FormControl>
+                            <FormMessage />
+                            </FormItem>
+                        )}
+                        />
+                        <Button type="submit" className="w-full bg-accent text-accent-foreground hover:bg-accent/90">Записатися на прийом</Button>
+                    </form>
+                    </Form>
+                    <div className="mt-8 space-y-4 text-sm">
+                        <div className="flex items-center gap-4">
+                            <Phone className="h-5 w-5 text-primary" />
+                            <a href="tel:+380000000000" className="text-muted-foreground hover:text-primary">+380 (00) 000-00-00</a>
+                        </div>
+                        <div className="flex items-center gap-4">
+                            <Mail className="h-5 w-5 text-primary" />
+                            <a href="mailto:contact@odesa.auto" className="text-muted-foreground hover:text-primary">contact@odesa.auto</a>
+                        </div>
+                        <div className="flex items-center gap-4">
+                            <MapPin className="h-5 w-5 text-primary" />
+                            <span className="text-muted-foreground">Одеса, Україна</span>
+                        </div>
                     </div>
-                     <div className="flex items-center gap-4">
-                        <Mail className="h-5 w-5 text-primary" />
-                        <a href="mailto:contact@odesa.auto" className="text-muted-foreground hover:text-primary">contact@odesa.auto</a>
-                    </div>
-                     <div className="flex items-center gap-4">
-                        <MapPin className="h-5 w-5 text-primary" />
-                        <span className="text-muted-foreground">Одеса, Україна</span>
-                    </div>
-                </div>
-            </div>
+                </CardContent>
+            </Card>
             <div className="overflow-hidden rounded-lg">
                 <LocationMap />
             </div>

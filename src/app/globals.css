@@ -85,3 +85,12 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  .glassmorphism {
+    @apply bg-white/30 backdrop-blur-lg border border-white/20 shadow-lg;
+  }
+  .dark .glassmorphism {
+    @apply bg-black/30 border-white/10;
+  }
+}
