@@ -82,6 +82,26 @@
     background-color: hsl(var(--primary) / 0.5);
     color: hsl(var(--primary-foreground));
   }
+  
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--background));
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: hsl(265 80% 60%); /* Purple */
+    border-radius: 20px;
+    border: 3px solid hsl(var(--background));
+    box-shadow: 0 0 10px hsl(265 80% 60% / 0.8);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: hsl(265 80% 70%);
+  }
 }
 
 @layer utilities {

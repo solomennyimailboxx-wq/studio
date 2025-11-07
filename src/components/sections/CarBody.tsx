@@ -34,7 +34,7 @@ export const CarBody: React.FC<CarBodyProps> = ({ selectedParts, onPartClick }) 
                         {/* Windshield */}
                         <path d="M20,50 L80,50 L75,65 L25,65 Z" />
                         {/* Rear window */}
-                        <path d: "M25 110 L75 110 L80 125 L20 125 Z" />
+                        <path d="M25 110 L75 110 L80 125 L20 125 Z" />
                     </g>
                     {carParts.map(part => (
                         <Tooltip key={part.id} delayDuration={0}>
