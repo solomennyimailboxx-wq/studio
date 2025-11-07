@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { CarBody } from "./CarBody";
@@ -8,7 +8,6 @@ import { Check, Info, ShoppingCart, X } from "lucide-react";
 import Link from "next/link";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
-// Prices for different types of work
 const workPrices: Record<string, number> = {
   "рихтування": 150,
   "шпаклювання": 100,
@@ -16,29 +15,26 @@ const workPrices: Record<string, number> = {
   "полірування": 50,
 };
 
-// Base price multipliers for each car part
 const partMultipliers: Record<string, { name: string; multiplier: number }> = {
     "front-bumper": { name: "Передній бампер", multiplier: 1.2 },
-    "rear-bumper": { name: "Задній бампер", multiplier: 1.2 },
     "hood": { name: "Капот", multiplier: 1.8 },
-    "trunk": { name: "Багажник", multiplier: 1.5 },
     "roof": { name: "Дах", multiplier: 2.0 },
-    "front-left-fender": { name: "Переднє ліве крило", multiplier: 1.0 },
-    "front-right-fender": { name: "Переднє праве крило", multiplier: 1.0 },
-    "rear-left-fender": { name: "Заднє ліве крило", multiplier: 1.1 },
-    "rear-right-fender": { name: "Заднє праве крило", multiplier: 1.1 },
+    "trunk": { name: "Багажник", multiplier: 1.5 },
+    "front-fender": { name: "Переднє крило", multiplier: 1.0 },
     "front-door": { name: "Передні двері", multiplier: 1.4 },
     "rear-door": { name: "Задні двері", multiplier: 1.4 },
+    "rear-fender": { name: "Заднє крило", multiplier: 1.1 },
+    "rear-bumper": { name: "Задній бампер", multiplier: 1.2 },
 };
 
 type SelectedWork = Record<string, Record<string, boolean>>;
 
 export default function RepairCalculator() {
     const [selectedWork, setSelectedWork] = useState<SelectedWork>({});
-    const [popoverState, setPopoverState] = useState<{ open: boolean; target: string | null }>({ open: false, target: null });
+    const [popoverState, setPopoverState] = useState<{ open: boolean; target: string | null; triggerRef: React.RefObject<SVGPathElement> | null }>({ open: false, target: null, triggerRef: null });
 
     const handlePartClick = useCallback((partId: string, triggerRef: React.RefObject<SVGPathElement>) => {
-        setPopoverState({ open: true, target: partId });
+        setPopoverState({ open: true, target: partId, triggerRef: triggerRef });
     }, []);
 
     const handleWorkSelection = (partId: string, workType: string) => {
@@ -49,7 +45,6 @@ export default function RepairCalculator() {
             }
             newWork[partId][workType] = !newWork[partId][workType];
             
-            // If all work types for a part are deselected, remove the part key
             if (Object.values(newWork[partId]).every(v => !v)) {
                 delete newWork[partId];
             }
@@ -98,21 +93,20 @@ export default function RepairCalculator() {
                         Отримайте миттєву попередню оцінку. Клікніть на деталь, щоб обрати тип робіт.
                     </p>
                 </div>
-                <div className="mt-12 grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-                    <div className="lg:col-span-2 glassmorphism-card p-4 md:p-8 rounded-2xl">
+                <div className="mt-12 grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
+                    <div className="lg:col-span-3 glassmorphism-card p-4 md:p-8 rounded-2xl">
                          <Popover open={popoverState.open} onOpenChange={(open) => setPopoverState(p => ({ ...p, open }))}>
                             <PopoverTrigger asChild>
-                                <div id="car-body-trigger-wrapper" className="w-full h-full">
-                                    <CarBody selectedParts={selectedPartsForHighlight} onPartClick={handlePartClick} />
-                                </div>
+                                {/* This div is a placeholder for the trigger, the actual trigger is the car part */}
+                                <div />
                             </PopoverTrigger>
+                            <CarBody selectedParts={selectedPartsForHighlight} onPartClick={handlePartClick} />
+
                             <PopoverContent 
                                 side="top" 
                                 align="center"
                                 className="w-auto bg-black/80 backdrop-blur-lg border-primary/50 text-white p-4"
-                                style={{
-                                    left: `var(--radix-popover-trigger-position)`
-                                }}
+                                anchor={popoverState.triggerRef?.current}
                             >
                                 {popoverState.target && (
                                     <div className="space-y-3">
@@ -130,7 +124,7 @@ export default function RepairCalculator() {
                                                 </Button>
                                             ))}
                                         </div>
-                                         <Button variant="ghost" size="sm" onClick={() => setPopoverState({ open: false, target: null })} className="w-full mt-2">
+                                         <Button variant="ghost" size="sm" onClick={() => setPopoverState({ open: false, target: null, triggerRef: null })} className="w-full mt-2">
                                             <X className="mr-2 h-4 w-4"/>
                                             Закрити
                                         </Button>
@@ -139,7 +133,7 @@ export default function RepairCalculator() {
                             </PopoverContent>
                         </Popover>
                     </div>
-                    <Card className="glassmorphism-card rounded-2xl sticky top-28">
+                    <Card className="lg:col-span-2 glassmorphism-card rounded-2xl sticky top-28">
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2">
                                 <ShoppingCart/>

@@ -1,6 +1,5 @@
 import React, { useRef, MouseEvent } from 'react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { useComposedRefs } from '@/hooks/use-composed-refs';
 
 type CarBodyProps = {
   selectedParts: Record<string, boolean>;
@@ -8,33 +7,26 @@ type CarBodyProps = {
 };
 
 const carParts = [
-    { id: "hood", name: "Капот", d: "M25,15 h50 v35 h-50 z" },
-    { id: "roof", name: "Дах", d: "M22,55 h56 v60 h-56 z" },
-    { id: "trunk", name: "Багажник", d: "M25,120 h50 v25 h-50 z" },
-    { id: "front-left-fender", name: "Переднє ліве крило", d: "M15,18 h10 l-2,30 h-8 z" },
-    { id: "front-right-fender", name: "Переднє праве крило", d: "M75,18 h10 l-2,30 h-8 z" },
-    { id: "rear-left-fender", name: "Заднє ліве крило", d: "M15,115 h10 v28 l-10,2 z" },
-    { id: "rear-right-fender", name: "Заднє праве крило", d: "M75,115 h10 v28 l-10,2 z" },
-    { id: "front-bumper", name: "Передній бампер", d: "M288,75 h-18 l-10,-15 h-5 l-5,15 h-10 v20 h48 z" },
-    { id: "front-door", name: "Передні двері", d: "M195,65 h50 v55 h-50 z" },
-    { id: "rear-door", name: "Задні двері", d: "M145,65 h50 v55 h-50 z" },
-    { id: "rear-bumper", name: "Задній бампер", d: "M30,75 h20 l5-15 h5 l5,15 h5 v20 h-35 z" },
+    { id: "front-bumper", name: "Передній бампер", d: "M558.1,95.2c-15.6-0.1-30.8,4.2-44.1,11.9l-31.1-11.9H347.3l-28.9,11.9c-12.7-7.9-27-12.3-42.3-12.3H42.9v23.8h233.2c15.3,0,29.6,4.4,42.3,12.3l28.9-11.9h135.6l31.1,11.9c13.3-7.7,28.5-11.9,44.1-12.3H600V95.2H558.1z" },
+    { id: "hood", name: "Капот", d: "M347.3,107.1l-31.1,23.8H180.6l-31.1-23.8H42.9v47.6h106.6l31.1,23.8h166.7l31.1-23.8h221.7V107.1H347.3z" },
+    { id: "roof", name: "Дах", d: "M336.7,178.6l-31.1,23.8H211.7l-31.1-23.8h-57v47.6h42.4l31.1,23.8h135.6l31.1-23.8h174.9v-47.6H336.7z" },
+    { id: "trunk", name: "Багажник", d: "M558.1,178.6H384.3l-31.1,23.8H123.6L92.5,178.6H42.9v47.6h50.2l31.1,23.8h250l31.1-23.8h194.8v-47.6H558.1z" },
+    { id: "front-fender", name: "Переднє крило", d: "M149.5,107.1H42.9v47.6h106.6V107.1z" },
+    { id: "front-door", name: "Передні двері", d: "M282.9,154.8H180.6v47.6h102.3V154.8z" },
+    { id: "rear-door", name: "Задні двері", d: "M384.3,154.8H282.9v47.6h101.4V154.8z" },
+    { id: "rear-fender", name: "Заднє крило", d: "M558.1,154.8H384.3v23.8h173.8V154.8z" },
 ];
 
 
 export const CarBody: React.FC<CarBodyProps> = ({ selectedParts, onPartClick }) => {
     
-    // This ref will be attached to the PopoverTrigger wrapper
-    const triggerRef = useRef<HTMLDivElement>(null);
-
     const renderPart = (partId: string) => {
         const part = carParts.find(p => p.id === partId);
         if (!part) return null;
         
         const partRef = useRef<SVGPathElement>(null);
 
-        const handlePartInteraction = (event: MouseEvent<SVGPathElement>) => {
-            // We pass the ref to the specific SVG part to the parent
+        const handlePartInteraction = () => {
             onPartClick(part.id, partRef);
         };
 
@@ -43,9 +35,10 @@ export const CarBody: React.FC<CarBodyProps> = ({ selectedParts, onPartClick }) 
                 <TooltipTrigger asChild>
                     <path
                         ref={partRef}
+                        id={part.id}
                         d={part.d}
                         onClick={handlePartInteraction}
-                        className={`cursor-pointer transition-all duration-200 ${selectedParts[part.id] ? 'fill-primary/70 stroke-primary' : 'fill-primary/20 hover:fill-primary/40'}`}
+                        className={`cursor-pointer transition-all duration-200 stroke-primary/50 stroke-1 ${selectedParts[part.id] ? 'fill-primary/70 stroke-primary' : 'fill-primary/20 hover:fill-primary/40'}`}
                     />
                 </TooltipTrigger>
                 <TooltipContent side="top" className="bg-black text-white border-primary/50">
@@ -57,46 +50,30 @@ export const CarBody: React.FC<CarBodyProps> = ({ selectedParts, onPartClick }) 
 
     return (
         <TooltipProvider>
-            <div ref={triggerRef} className="w-full max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            <div className="w-full max-w-2xl mx-auto">
                  <div className="w-full">
-                    <h3 className="text-center text-lg font-semibold text-primary mb-4">Вид зверху</h3>
-                    <svg viewBox="0 0 100 160" className="w-full drop-shadow-[0_0_10px_hsl(var(--primary)/0.5)]">
-                        <g className="stroke-primary/50 stroke-1 fill-transparent">
-                            {/* Main Body Top */}
-                            <path d="M15,20 a10,10 0 0,0 -5,5 v110 a10,10 0 0,0 5,5 h70 a10,10 0 0,0 5,-5 v-110 a10,10 0 0,0 -5,-5 h-70 z" />
-                            {/* Windshield */}
-                            <path d="M25,50 l50,0 -5,15 h-40 z" />
-                            {/* Rear window */}
-                            <path d="M25,115 l50,0 5,-15 h-60 z" />
+                    <svg viewBox="0 0 600 250" className="w-full drop-shadow-[0_0_10px_hsl(var(--primary)/0.5)]">
+                        <g>
+                            {/* Main Body */}
+                            <path d="M571.4,85.2c-10.9-25-32.5-42.6-59.2-49.4l-50.2-12.9H138.1L87.9,35.8C61.2,42.6,39.6,60.2,28.6,85.2H0v119h50.2 c3.6,11.3,10.6,21.3,20.2,28.6h459.5c9.6-7.2,16.6-17.3,20.2-28.6H600v-119H571.4z" 
+                            className="fill-transparent stroke-primary/50 stroke-1"
+                            />
+                            {/* Windows */}
+                            <path d="M386,47.6L267.3,47.6l-33.5,37.6h183.3L386,47.6z M233.8,85.2l-31.1,37.6h-59.2l31.1-37.6H233.8z M417.1,85.2l-31.1,37.6H267.3l31.1-37.6H417.1z"
+                            className="fill-primary/10 stroke-primary/50 stroke-1"
+                            />
                         </g>
-                        {renderPart("hood")}
-                        {renderPart("roof")}
-                        {renderPart("trunk")}
-                        {renderPart("front-left-fender")}
-                        {renderPart("front-right-fender")}
-                        {renderPart("rear-left-fender")}
-                        {renderPart("rear-right-fender")}
-                    </svg>
-                 </div>
-                 <div className="w-full">
-                    <h3 className="text-center text-lg font-semibold text-primary mb-4">Вид збоку</h3>
-                    <svg viewBox="0 0 300 140" className="w-full drop-shadow-[0_0_10px_hsl(var(--primary)/0.5)]">
-                         <g className="stroke-primary/50 stroke-1 fill-transparent">
-                             {/* Main Body Side */}
-                            <path d="M285,80 a40,40 0 0,1 -20,15 h-220 a30,30 0 0,1 -25,-15 l-10,-20 a10,10 0 0,1 10,-10 h260 a10,10 0 0,1 10,10 l-5,20 z" />
-                            {/* Roof and windows */}
-                            <path d="M245,65 h-150 a10,10 0 0,0 -10,-10 l-10,-20 a5,5 0 0,1 5,-5 h150 a10,10 0 0,1 10,10 v25 z" />
-                            {/* Wheels */}
-                            <circle cx="70" cy="95" r="15" />
-                            <circle cx="230" cy="95" r="15" />
+                        <g>
+                            {carParts.map(part => renderPart(part.id))}
                         </g>
-                        {renderPart("front-bumper")}
-                        {renderPart("front-door")}
-                        {renderPart("rear-door")}
-                        {renderPart("rear-bumper")}
-                        {renderPart("hood")}
-                        {renderPart("trunk")}
-                        {renderPart("roof")}
+
+                        {/* Wheels */}
+                        <g className="fill-gray-800 stroke-primary/30 stroke-1">
+                          <circle cx="135" cy="180" r="30" />
+                          <circle cx="465" cy="180" r="30" />
+                          <circle cx="135" cy="180" r="10" className="fill-gray-600"/>
+                          <circle cx="465" cy="180" r="10" className="fill-gray-600"/>
+                        </g>
                     </svg>
                  </div>
             </div>
