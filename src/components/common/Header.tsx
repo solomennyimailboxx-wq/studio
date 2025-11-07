@@ -38,7 +38,7 @@ export default function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-sm font-medium text-gray-300 transition-colors hover:text-primary hover:drop-shadow-[0_0_5px_hsl(var(--primary))]"
+                className="relative text-sm font-medium text-gray-300 transition-colors duration-300 hover:text-primary after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
                 prefetch={false}
               >
                 {link.label}
